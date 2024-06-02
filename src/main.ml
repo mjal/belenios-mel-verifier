@@ -1,5 +1,35 @@
+module Tpl = struct
+  type t
+  external compile : string -> ('b -> (unit -> string)) = "template" [@@mel.module "lodash"]
+end
+
 let display_questions (questions : State.question array) =
   let open Webapi.Dom in
+
+  let question_list = Display.get_element_by_id "info-questions" in
+
+  let tpl = Tpl.compile {|
+    <li>
+      <span><%= question %></span>
+      <ul class="uk-list uk-list-disc">
+        <% answers.forEach(function(answer) { %>
+        <% if (answer) { %>
+        <li><span><%= answer %></span></li>
+        <% } %>
+        <% }); %>
+      </ul>
+    </li>
+    |} in
+
+  Belt.Array.forEach questions (fun question ->
+    let innerHtml = (tpl question ()) in
+    Js.log innerHtml ;
+    let question_item = Document.createElement "li" document in
+    Element.setInnerText question_item innerHtml ;
+    Element.appendChild question_item question_list
+  )
+
+  (*
   let document = document in
   let question_list = Display.get_element_by_id "info-questions" in
   Belt.Array.forEach questions (fun question ->
@@ -17,6 +47,7 @@ let display_questions (questions : State.question array) =
           Element.appendChild answer_item answer_list ) ;
       Element.appendChild answer_list question_item ;
       Element.appendChild question_item question_list )
+  *)
 
 let display_metadata _state =
   let state = Belt.Option.getUnsafe !State.current in
