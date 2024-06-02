@@ -30,8 +30,7 @@ let read_file on_read file =
   reader_set_onload reader (fun _ -> on_read reader.result |> ignore) ;
   reader_read_as_array_buffer reader file
 
-let load_file ~after:display_results file_input =
-  let tar_file = first_file file_input in
+let load_file tar_file then_ =
   read_file
     (fun file ->
       untar file
@@ -42,5 +41,5 @@ let load_file ~after:display_results file_input =
                     Verify.verify state )
              |> Js.Promise.then_ (fun verification ->
                     Verification.current := Some verification ;
-                    display_results !State.current !Verification.current ) ) )
+                    then_ !State.current !Verification.current ) ) )
     tar_file

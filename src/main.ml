@@ -1,3 +1,35 @@
+let get_element_by_id id =
+  let open Webapi.Dom in
+  Document.getElementById id document |> Belt.Option.getUnsafe
+
+let () =
+  let open Webapi.Dom in
+  get_element_by_id "file"
+  |> Element.addEventListener "change" (fun _ ->
+    let tar_file = Loader.first_file (get_element_by_id "file") in
+    Loader.load_file tar_file (fun state _verificationState ->
+      let _ = Js.log 0 in
+      let _ = Js.log state in
+      let _ = Js.log 1 in
+      Js.Promise.resolve true
+    )
+  )
+
+(*
+  let open Webapi.Dom in
+  let file_input = Display.get_element_by_id "file" in
+  let () =
+    Element.addEventListener "change"
+      (fun _ ->
+        Display.set_spinner () ;
+        Loader.load_file file_input (fun state verificationState ->
+          display_results state verificationState
+        )
+      )
+      file_input;
+      *)
+
+(*
 let display_questions (questions : State.question array) =
   let open Webapi.Dom in
   let document = document in
@@ -33,7 +65,14 @@ let display_ballots ?search () =
   let ballots_list = Display.get_element_by_id "ballots-list" in
   Element.setInnerHTML ballots_list "" ;
   let state = Belt.Option.getUnsafe !State.current in
-  state.State.ballots
+  let _ = state.ballots
+  |. Belt.Array.map (fun ballot ->
+      Js.log(ballot);
+      ballot.payload.credential
+    )
+  in
+
+  state.ballots
   |. Belt.Array.map (fun ballot -> ballot.payload.credential)
   |. Belt.Set.String.fromArray
   |. Belt.Set.String.keep (fun ballot_hash ->
@@ -116,7 +155,10 @@ let () =
     Element.addEventListener "change"
       (fun _ ->
         Display.set_spinner () ;
-        Loader.load_file ~after:display_results file_input )
+        Loader.load_file file_input (fun state verificationState ->
+          display_results state verificationState
+        )
+      )
       file_input
   in
   let ballot_search_input = Display.get_element_by_id "ballots-search" in
@@ -144,3 +186,4 @@ let () =
   let _ = Display.display_results Verification.fake_verification in
   *)
   ()
+*)
