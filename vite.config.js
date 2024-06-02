@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import melangePlugin from "vite-plugin-melange";
 
 export default defineConfig({
-  base: "/belenios-mel-verifier/",
+  //base: "/belenios-mel-verifier/",
   plugins: [
     melangePlugin({
       emitDir: "src",
