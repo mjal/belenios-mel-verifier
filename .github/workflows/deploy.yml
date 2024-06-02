@@ -6,6 +6,8 @@ on:
 
 jobs:
   deploy:
+    strategy:
+      fail-fast: false
     name: Deploy
     runs-on: ubuntu-latest
     steps:
