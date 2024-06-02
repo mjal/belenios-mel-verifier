@@ -1,6 +1,5 @@
-open Verification.Ballot
-
 (* TODO *)
+(*
 let verify_one _ballot =
   { hash= "hash1"
   ; uuid= false
@@ -14,6 +13,7 @@ let verify_one _ballot =
       [| {individual_proof= false; overall_proof= WithoutBlank false}
        ; { individual_proof= false
          ; overall_proof= WithBlank {blank= false; overall= false} } |] }
-
-let verify state =
-  Belt.Array.map state.State.ballots verify_one |> Js.Promise.resolve
+*)
+let verify _state =
+  [||] |> Js.Promise.resolve
+  (* Belt.Array.map state.State.ballots verify_one |> Js.Promise.resolve *)
