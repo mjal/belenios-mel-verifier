@@ -42,5 +42,5 @@ let load_file ~after:display_results file_input =
                     Verify.verify state )
              |> Js.Promise.then_ (fun verification ->
                     Verification.current := Some verification ;
-                    display_results verification ) ) )
+                    display_results !State.current !Verification.current ) ) )
     tar_file

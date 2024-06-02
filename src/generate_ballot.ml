@@ -1,6 +1,6 @@
 let get_private_key () =
   let open Webapi.Dom in
-  Helpers.get_element_by_id "generate-ballot-private-key"
+  Display.get_element_by_id "generate-ballot-private-key"
   |. HtmlInputElement.ofElement |. Belt.Option.getUnsafe
   |. HtmlInputElement.value
 
@@ -17,7 +17,7 @@ let get_answers () =
 
 let set_ballot_textarea ballot_json =
   let open Webapi.Dom in
-  Helpers.get_element_by_id "generate-ballot-ballot"
+  Display.get_element_by_id "generate-ballot-ballot"
   |. Element.setInnerHTML ballot_json
 
 let generate () =
