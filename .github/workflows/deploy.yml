@@ -1,0 +1,43 @@
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    name: Build sample project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: current
+
+      - name: Use OCaml 5.1.1
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: 5.1.1
+
+      - name: Install all deps
+        run: npm run install-opam-npm
+
+      - name: Build
+        run: npm run build
+
+      - name: Bundle
+        run: npm run bundle
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload dist folder
+          path: "./dist"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
