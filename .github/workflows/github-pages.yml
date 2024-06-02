@@ -35,6 +35,10 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
       - name: Install opam-npm
         run: npm run install-opam-npm
       - name: Init
