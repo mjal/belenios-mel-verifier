@@ -1,11 +1,11 @@
 opam-version: "2.0"
-synopsis: "Belenios Verifier"
-description: "A verifier for Belenios elections"
-maintainer: ["<your_name>"]
-authors: ["<your_name>"]
-license: "MIT"
-homepage: "https://github.com/your/project"
-bug-reports: "https://github.com/your/project/issues"
+synopsis: "Belenios Melange Verifier"
+description: "An external verifier for Belenios elections"
+maintainer: ["maxime.lalisse@gmail.com"]
+authors: ["Maxime Lalisse"]
+license: "AGPL-3"
+homepage: "https://github.com/mjal/belenios-mel-verifier"
+bug-reports: "https://github.com/mjal/belenios-mel-verifier/issues"
 depends: [
   "ocaml"
   "reason" {>= "3.10.0"}
@@ -18,4 +18,4 @@ depends: [
   "ocamlformat" {= "0.26.1"}
   "odoc" {with-doc}
 ]
-dev-repo: "git+https://github.com/your/project.git"
+dev-repo: "git+https://github.com/mjal/belenios-mel-verifier.git"
