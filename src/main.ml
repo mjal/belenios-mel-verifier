@@ -8,7 +8,7 @@ let display_questions (questions : State.question array) =
       Element.setInnerText question_text question.question ;
       Element.appendChild question_text question_item ;
       let answer_list = Document.createElement "ul" document in
-      Webapi.Dom.Element.setAttribute "class" "uk-list uk-list-disc" answer_list ;
+      Element.setAttribute "class" "uk-list uk-list-disc" answer_list ;
       Belt.Array.forEach question.answers (fun answer ->
           let answer_item = Document.createElement "li" document in
           let answer_text = Document.createElement "span" document in
@@ -57,24 +57,24 @@ let display_ballot_generation_form _state =
   let question_list = Display.get_element_by_id "generate-ballot-questions" in
   Belt.Array.forEachWithIndex questions (fun index_question question ->
       let question_item = Document.createElement "div" document in
-      Webapi.Dom.Element.setAttribute "class" "uk-margin" question_item ;
+      Element.setAttribute "class" "uk-margin" question_item ;
       let question_text = Document.createElement "label" document in
-      Webapi.Dom.Element.setAttribute "class" "uk-form-label" question_text ;
+      Element.setAttribute "class" "uk-form-label" question_text ;
       (* Webapi.Dom.Element.setAttribute "for" ("generate-ballot-question-" ^ string_of_int index) question_text ; *)
       Element.setInnerText question_text question.question ;
       Element.appendChild question_text question_item ;
       let answer_list = Document.createElement "div" document in
-      Webapi.Dom.Element.setAttribute "class" "uk-form-controls" answer_list ;
+      Element.setAttribute "class" "uk-form-controls" answer_list ;
       Belt.Array.forEachWithIndex question.answers (fun index_answer answer ->
           let answer_item = Document.createElement "label" document in
           let answer_input = Document.createElement "input" document in
-          Webapi.Dom.Element.setAttribute "class"
+          Element.setAttribute "class"
             "uk-radio generate-ballot-input generate-ballot-answer" answer_input ;
-          Webapi.Dom.Element.setAttribute "type" "radio" answer_input ;
-          Webapi.Dom.Element.setAttribute "name"
+          Element.setAttribute "type" "radio" answer_input ;
+          Element.setAttribute "name"
             ("generate-ballot-input-" ^ string_of_int index_question)
             answer_input ;
-          Webapi.Dom.Element.setAttribute "value"
+          Element.setAttribute "value"
             (string_of_int index_answer)
             answer_input ;
           let answer_text = Document.createTextNode (" " ^ answer) document in
