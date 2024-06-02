@@ -35,6 +35,8 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - name: Install opam-npm
+        run: npm run install-opam-npm
       - name: Init
         run: npm run init
       - name: Build
