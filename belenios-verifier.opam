@@ -1,0 +1,21 @@
+opam-version: "2.0"
+synopsis: "Belenios Verifier"
+description: "A verifier for Belenios elections"
+maintainer: ["<your_name>"]
+authors: ["<your_name>"]
+license: "MIT"
+homepage: "https://github.com/your/project"
+bug-reports: "https://github.com/your/project/issues"
+depends: [
+  "ocaml"
+  "reason" {>= "3.10.0"}
+  "dune" {>= "3.9"}
+  "melange" {>= "2.0.0"}
+  "melange-webapi" {>= "0.21.0"}
+  "opam-check-npm-deps" {with-test} # todo: use with-dev-setup once opam 2.2 is out
+  "ocaml-lsp-server" {with-test} # todo: use with-dev-setup once opam 2.2 is out
+  "dot-merlin-reader" {with-test} # todo: use with-dev-setup once opam 2.2 is out
+  "ocamlformat" {= "0.26.1"}
+  "odoc" {with-doc}
+]
+dev-repo: "git+https://github.com/your/project.git"

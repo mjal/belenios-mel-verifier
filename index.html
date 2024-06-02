@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belenios Verifier</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/franken-ui-releases@0.0.12/dist/default.min.css"
+    />
+  </head>
+  <body>
+    <div class="uk-container uk-container-xsmall uk-padding">
+      <h1 class="uk-h1 uk-text-center">Belenios Verifier</h1>
+      <!--
+          <input type="text" id="uuid" placeholder="Election uuid" value="uSvjxvtjMbuFvg">
+        <button id="verify">Verify</button>
+      -->
+      <div id="import" class="uk-card uk-card-body uk-width-medium uk-margin uk-margin-auto">
+        <h3 class="uk-card-title">Import your .bel file</h3>
+
+        <div class="js-upload" uk-form-custom>
+          <input type="file" id="file" placeholder="Import your .bel file" />
+          <button class="uk-button uk-button-default uk-margin-top" type="button" tabindex="-1">
+            Import
+          </button>
+        </div>
+      </div>
+
+      <div id="spinner" class="uk-text-center uk-margin uk-hidden">
+      <span uk-spinner="ratio: 4.5" class="uk-margin-auto"></span>
+      </div>
+
+      <div id="content" class="uk-hidden uk-margin">
+        <button uk-toggle="target: #generate-ballot-modal" class="uk-button uk-button-default uk-align-right" type="button">Generate a ballot</button>
+        <h2 id="info-name" class="uk-h2"></h2>
+        <p id="info-description"></p>
+
+        <ul uk-accordion class="uk-margin">
+          <li>
+            <a class="uk-accordion-title" href>
+              <span>Info</span>
+              <span
+                class="uk-accordion-icon"
+                uk-icon="icon: chevron-down; ratio: 0.8"
+                ></span>
+            </a>
+            <div id="info" class="uk-accordion-content">
+              <!-- <div><span class="uk-text-bold">Name: </span><span id="info-name"></div> -->
+              <!-- <div><span class="uk-text-bold">Description: </span><span id="info-description"></div> -->
+              <div><span class="uk-text-bold">Hash: </span><code id="info-hash" class="uk-codespan"></code>
+              <div><span class="uk-text-bold">Questions: </span>
+                <ul id="info-questions" class="uk-list uk-list-disc">
+                </ul>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <a class="uk-accordion-title" href>
+              <span>Ballots</span>
+              <span
+                class="uk-accordion-icon"
+                uk-icon="icon: chevron-down; ratio: 0.8"
+                ></span>
+            </a>
+            <div id="ballots" class="uk-accordion-content">
+                <input id="ballots-search" placeholder="Search a ballot" class="uk-input" type="text" />
+                <ul id="ballots-list" class="uk-list uk-list-disc">
+                </ul>
+            </div>
+          </li>
+
+          <li>
+            <a class="uk-accordion-title" href>
+              <span>Verifications <span id="verifications-total" uk-icon="check" class="uk-text-success"></span></span>
+              
+              <span
+                class="uk-accordion-icon"
+                uk-icon="icon: chevron-down; ratio: 0.8"
+                ></span>
+            </a>
+            <div id="verifications" class="uk-accordion-content"></div>
+          </li>
+
+        <!-- <ul uk-accordion> -->
+        <!--   <li> -->
+        <!--     <a class="uk-accordion-title" href> -->
+        <!--       <span>Database</span> -->
+        <!--       <span -->
+        <!--         class="uk-accordion-icon" -->
+        <!--         uk-icon="icon: chevron-down; ratio: 0.8" -->
+        <!--         ></span> -->
+        <!--     </a> -->
+        <!--     <div id="database" class="uk-accordion-content"></div> -->
+        <!--   </li> -->
+        <!---->
+        <!--   <li> -->
+        <!--     <a class="uk-accordion-title" href> -->
+        <!--       <span>Setup</span> -->
+        <!--       <span -->
+        <!--         class="uk-accordion-icon" -->
+        <!--         uk-icon="icon: chevron-down; ratio: 0.8" -->
+        <!--         ></span> -->
+        <!--     </a> -->
+        <!--     <div id="setup" class="uk-accordion-content"></div> -->
+        <!--   </li> -->
+        <!---->
+        <!--   <li> -->
+        <!--     <a class="uk-accordion-title" href> -->
+        <!--       <span>Ballots</span> -->
+        <!--       <span -->
+        <!--         class="uk-accordion-icon" -->
+        <!--         uk-icon="icon: chevron-down; ratio: 0.8" -->
+        <!--         ></span> -->
+        <!--     </a> -->
+        <!--     <div id="ballots" class="uk-accordion-content"></div> -->
+        <!--   </li> -->
+        <!---->
+          <!-- <li> -->
+          <!--   <a class="uk-accordion-title" href> -->
+          <!--     <span>Encrypted Tally</span> -->
+          <!--     <span -->
+          <!--       class="uk-accordion-icon" -->
+          <!--       uk-icon="icon: chevron-down; ratio: 0.8" -->
+          <!--       ></span> -->
+          <!--   </a> -->
+          <!--   <div id="encryptedTally" class="uk-accordion-content"></div> -->
+          <!-- </li> -->
+          <!---->
+          <!-- <li> -->
+          <!--   <a class="uk-accordion-title" href> -->
+          <!--     <span>Partial Decryptions</span> -->
+          <!--     <span -->
+          <!--       class="uk-accordion-icon" -->
+          <!--       uk-icon="icon: chevron-down; ratio: 0.8" -->
+          <!--       ></span> -->
+          <!--   </a> -->
+          <!--   <div id="partialDecryptions" class="uk-accordion-content"></div> -->
+          <!-- </li> -->
+          <!---->
+          <!-- <li> -->
+          <!--   <a class="uk-accordion-title" href> -->
+          <!--     <span>Result</span> -->
+          <!--     <span -->
+          <!--       class="uk-accordion-icon" -->
+          <!--       uk-icon="icon: chevron-down; ratio: 0.8" -->
+          <!--       ></span> -->
+          <!--   </a> -->
+          <!--   <div id="result" class="uk-accordion-content"></div> -->
+          <!-- </li> -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="uk-modal p-6" id="generate-ballot-modal" uk-modal>
+      <div class="uk-modal-body uk-modal-dialog">
+        <h2 class="uk-modal-title">Generate a ballot</h2>
+        <form class="uk-form-stacked uk-margin">
+          <div class="uk-margin">
+            <label class="uk-form-label" for="generate-ballot-private-key">Private key</label>
+            <div class="uk-form-controls">
+              <input
+              class="uk-input generate-ballot-input"
+              id="generate-ballot-private-key"
+              type="text"
+              placeholder="Paste your private key"
+              />
+            </div>
+          </div>
+          <div id="generate-ballot-questions">
+          </div>
+          <div class="uk-margin">
+            <label class="uk-form-label" for="generate-ballot-ballot">Your ballot</label>
+            <textarea
+              id="generate-ballot-ballot"
+              class="uk-textarea"
+              rows="5"
+              placeholder="Textarea"
+              aria-label="Textarea"
+              style="white-space: pre-wrap"
+              readonly
+              ></textarea>
+          </div>
+        </form>
+        <button class="uk-modal-close uk-button uk-button-default" type="button">Close</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ml"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.20.8/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.20.8/dist/js/uikit-icons.min.js"></script>
+  </body>
+</html>
